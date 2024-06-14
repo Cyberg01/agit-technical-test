@@ -1,4 +1,4 @@
-import { NotFoundError, Service, UseCase } from '@amirmarmul/waba-common';
+import { Cache, NotFoundError, Service, UseCase } from '@amirmarmul/waba-common';
 import UserRepo from '../../repos/UserRepo';
 import { User } from '../../domain/User';
 
@@ -6,13 +6,16 @@ import { User } from '../../domain/User';
 export default class ShowUser implements UseCase<string, Promise<User>> {
   constructor(
     private userRepo: UserRepo,
+    private cache: Cache,
   ) {
     //
   }
 
   async execute(id: string): Promise<User> {
-    const user = await this.userRepo.show(id);
-    
+    const user = await this.cache.get<User>(id, async () => {
+      return await this.userRepo.show(id);
+    });
+
     if (!user) {
       throw new NotFoundError;
     }
