@@ -7,7 +7,7 @@ const config: CacheConfig = {
             driver: 'array'
         },
         file: {
-            driver: 'redis',
+            driver: 'file',
             path: 'storage/cache/data'
         },
         redis: {
