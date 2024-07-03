@@ -7,10 +7,10 @@ import UpdateUserController from '@/modules/users/useCases/updateUser/UpdateUser
 import { App } from '@amirmarmul/waba-common';
 
 const app = new App([
-  // serviceModule
+  // version
   VersionController,
 
-  // usersModule
+  // users
   CreateUserController,
   ListUserController,
   ShowUserController,
