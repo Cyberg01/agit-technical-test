@@ -2,10 +2,10 @@ import config from '@/config';
 import { Listener, logger, Service } from '@amirmarmul/waba-common';
 
 @Service()
-class UserDeletedListener extends Listener<any> {
+class AccountDeletedListener extends Listener<any> {
   service: string = config.app.name;
   exchange: string = 'waba-core';
-  topic: string = 'user.deleted';
+  topic: string = 'account.deleted';
 
   constructor() {
     super()
@@ -16,9 +16,9 @@ class UserDeletedListener extends Listener<any> {
       // perform action here
       ack();
     } catch (error: any) {
-      logger.error('Error while handling user created', { error: error.stack });
+      logger.error('Error while handling account created', { error: error.stack });
     }
   }
 }
 
-export default UserDeletedListener;
+export default AccountDeletedListener;

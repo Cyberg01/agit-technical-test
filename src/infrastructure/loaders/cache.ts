@@ -1,7 +1,7 @@
 import { Cache, CacheConfig, Loader } from '@amirmarmul/waba-common';
 
 const config: CacheConfig = {
-    store: 'redis',
+    store: 'file',
     stores: {
         array: {
             driver: 'array'
@@ -11,7 +11,8 @@ const config: CacheConfig = {
             path: 'storage/cache/data'
         },
         redis: {
-            driver: 'redis'
+            driver: 'redis',
+            redisUrl: 'redis://redis'
         }
     },
     prefix: process.env.npm_package_name + '_cache_'

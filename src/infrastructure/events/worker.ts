@@ -1,13 +1,13 @@
-import UserCreatedListener from '@/modules/users/events/listeners/UserCreatedListener';
-import UserDeletedListener from '@/modules/users/events/listeners/UserDeletedListener';
-import UserUpdatedListener from '@/modules/users/events/listeners/UserUpdatedListener';
+import AccountCreatedListener from '@/modules/users/events/listeners/AccountCreatedListener';
+import AccountDeletedListener from '@/modules/users/events/listeners/AccountDeletedListener';
+import AccountUpdatedListener from '@/modules/users/events/listeners/AccountUpdatedListener';
 import { Worker } from '@amirmarmul/waba-common';
 
 const worker = new Worker([
-  // usersModule
-  UserCreatedListener,
-  UserUpdatedListener,
-  UserDeletedListener,
+  // users
+  AccountCreatedListener,
+  AccountUpdatedListener,
+  AccountDeletedListener,
 ]);
 
 worker.start();

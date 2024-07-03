@@ -1,5 +1,6 @@
-import { Service, UseCase } from '@amirmarmul/waba-common';
+import { Service, UseCase, dispatcher } from '@amirmarmul/waba-common';
 import UserRepo from '../../repos/UserRepo';
+import UserDeleted from '../../events/UserDeleted';
 
 @Service()
 export default class DeleteUser implements UseCase<string, Promise<boolean>> {
@@ -10,6 +11,9 @@ export default class DeleteUser implements UseCase<string, Promise<boolean>> {
   }
 
   async execute(id: string): Promise<boolean> {
-    return !! await this.userRepo.destroy(id);
+    const user = await this.userRepo.destroy(id);
+    await dispatcher(new UserDeleted(user));
+    
+    return !! user; 
   }
 }
