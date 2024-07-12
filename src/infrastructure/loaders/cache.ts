@@ -16,7 +16,7 @@ const config: CacheConfig = {
             redisUrl: config.app.redis,
         }
     },
-    prefix: process.env.npm_package_name + '_cache_'
+    prefix: config.app.name + '_cache_'
 }
 
 export class CacheLoader extends Loader {
