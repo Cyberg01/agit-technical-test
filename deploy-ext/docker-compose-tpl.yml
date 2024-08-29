@@ -1,0 +1,53 @@
+version: "3"
+services:
+  # Node.js service
+  $APPNAME-app:
+    build: .
+    working_dir: /usr/src/app
+    environment:
+      MODE_ENV: $MODE_ENV
+      APP_PORT: $APP_PORT
+      APP_SSL_PORT: $APP_SSL_PORT
+      APP_DB: $APP_DB
+      APP_MQ: $APP_MQ
+      APP_GRPC: $APP_GRPC
+      BRANCH: $BRANCH
+      COMMIT: $COMMIT
+      BODY_LIMIT: $BODY_LIMIT
+      LOG_LEVEL: $LOG_LEVEL
+    ports:
+      - $APP_PORT:3000
+    volumes:
+      - ./src:/usr/src/app/src
+    networks:
+      - $APPNAME-net
+    command: "npm run start"
+    depends_on:
+      - $APPNAME-dbserver
+
+  # MongoDB service
+  $APPNAME-dbserver:
+    image: $IMAGEDB
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: $DB_USERNAME
+      MONGO_INITDB_ROOT_PASSWORD: $DB_PASSWORD
+      MONGO_INITDB_DATABASE: $DB_DATABASE
+    ports:
+      - $DB_PORT:27017
+    volumes:
+      - $APPNAME-voldb:/data/db
+    networks:
+      - $APPNAME-net
+
+# Docker networks
+networks:
+  $APPNAME-net:
+    driver: bridge
+
+# Docker volumes
+volumes:
+  $APPNAME-volcodes:
+    driver: local
+  $APPNAME-voldb:
+    driver: local
