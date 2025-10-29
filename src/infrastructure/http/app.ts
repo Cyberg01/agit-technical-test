@@ -1,4 +1,3 @@
-import VersionController from '@/modules/service/useCases/version/VersionController';
 import CreateUserController from '@/modules/users/useCases/createUser/CreateUserController';
 import DeleteUserController from '@/modules/users/useCases/deleteUser/DeleteUserController';
 import ListUserController from '@/modules/users/useCases/listUser/ListUserController';
@@ -7,15 +6,16 @@ import UpdateUserController from '@/modules/users/useCases/updateUser/UpdateUser
 import { App } from '@amirmarmul/waba-common';
 
 const app = new App([
-  // version
-  VersionController,
-
-  // users
   CreateUserController,
   ListUserController,
   ShowUserController,
   UpdateUserController,
   DeleteUserController,
-]);
+], {
+  health: {
+    rmq: true,
+    mongo: true,
+  },
+});
 
 app.start();
