@@ -1,4 +1,4 @@
-import { Cache, NotFoundError, Service, UseCase } from '@amirmarmul/waba-common';
+import { Cache, NotFoundError, Service, UseCase } from '@aptana/multichannel-common';
 import UserRepo from '../../repos/UserRepo';
 import { User } from '../../domain/User';
 

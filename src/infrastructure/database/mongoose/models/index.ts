@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { mongoosePaginate } from '@amirmarmul/waba-common';
+import { mongoosePaginate } from '@aptana/multichannel-common';
 
 mongoose.plugin(mongoosePaginate);
 

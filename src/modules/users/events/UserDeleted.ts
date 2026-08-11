@@ -1,4 +1,4 @@
-import { Event } from '@amirmarmul/waba-common';
+import { Event } from '@aptana/multichannel-common';
 import { User } from '../domain/User';
 import config from '@/config';
 

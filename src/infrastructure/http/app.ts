@@ -3,7 +3,7 @@ import DeleteUserController from '@/modules/users/useCases/deleteUser/DeleteUser
 import ListUserController from '@/modules/users/useCases/listUser/ListUserController';
 import ShowUserController from '@/modules/users/useCases/showUser/ShowUserController';
 import UpdateUserController from '@/modules/users/useCases/updateUser/UpdateUserController';
-import { App } from '@amirmarmul/waba-common';
+import { App } from '@aptana/multichannel-common';
 
 const app = new App([
   CreateUserController,

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { Controller, Service } from '@amirmarmul/waba-common';
+import { Controller, Service } from '@aptana/multichannel-common';
 import ListUser from './ListUser';
 
 @Service()

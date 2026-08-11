@@ -1,4 +1,4 @@
-import { Service, UseCase, transformAndValidate } from '@amirmarmul/waba-common';
+import { Service, UseCase, transformAndValidate } from '@aptana/multichannel-common';
 import ListUserDTO from './ListUserDTO';
 import UserRepo from '../../repos/UserRepo';
 

@@ -1,4 +1,4 @@
-import { Service, UseCase, dispatcher, transformAndValidate } from '@amirmarmul/waba-common';
+import { Service, UseCase, dispatcher, transformAndValidate } from '@aptana/multichannel-common';
 import { User } from '../../domain/User';
 import { UserId } from '../../domain/UserId';
 import CreateUserDTO from './CreateUserDTO';

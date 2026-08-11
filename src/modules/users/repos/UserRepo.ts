@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { NotFoundError, Pagination, Service } from '@amirmarmul/waba-common';
+import { NotFoundError, Pagination, Service } from '@aptana/multichannel-common';
 import { User, UserContract } from '../domain/User';
 import { UserMapper } from '../mappers/UserMapper';
 

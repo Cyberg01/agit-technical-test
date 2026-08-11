@@ -1,4 +1,4 @@
-import { Cache, CacheConfig, Loader } from '@amirmarmul/waba-common';
+import { Cache, CacheConfig, Loader } from '@aptana/multichannel-common';
 import config from '@/config';
 
 const cacheConfig: CacheConfig = {

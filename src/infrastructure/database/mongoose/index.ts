@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import config from '@/config';
 import '@/infrastructure/database/mongoose/models';
-import { logger } from '@amirmarmul/waba-common';
+import { logger } from '@aptana/multichannel-common';
 
 mongoose.set('strictQuery', true);
 mongoose.connect(config.app.db, {

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { Entity, UniqueId } from '@amirmarmul/waba-common';
+import { Entity, UniqueId } from '@aptana/multichannel-common';
 
 export interface UserProps {
     name: string;

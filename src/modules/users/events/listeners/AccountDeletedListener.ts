@@ -1,5 +1,5 @@
 import config from '@/config';
-import { Listener, logger, Service } from '@amirmarmul/waba-common';
+import { Listener, logger, Service } from '@aptana/multichannel-common';
 
 @Service()
 class AccountDeletedListener extends Listener<any> {

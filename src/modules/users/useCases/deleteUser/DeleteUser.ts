@@ -1,4 +1,4 @@
-import { Service, UseCase, dispatcher } from '@amirmarmul/waba-common';
+import { Service, UseCase, dispatcher } from '@aptana/multichannel-common';
 import UserRepo from '../../repos/UserRepo';
 import UserDeleted from '../../events/UserDeleted';
 
@@ -13,7 +13,7 @@ export default class DeleteUser implements UseCase<string, Promise<boolean>> {
   async execute(id: string): Promise<boolean> {
     const user = await this.userRepo.destroy(id);
     await dispatcher(new UserDeleted(user));
-    
-    return !! user; 
+
+    return !!user;
   }
 }

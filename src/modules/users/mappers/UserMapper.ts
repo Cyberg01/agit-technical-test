@@ -1,4 +1,4 @@
-import { Mapper, UniqueId } from '@amirmarmul/waba-common';
+import { Mapper, UniqueId } from '@aptana/multichannel-common';
 import { User } from '../domain/User';
 
 export class UserMapper extends Mapper<User> {
