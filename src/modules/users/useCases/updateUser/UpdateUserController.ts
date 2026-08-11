@@ -13,7 +13,7 @@ export default class UpdateUserController extends Controller {
   }
 
   registerRoutes(): void {
-    this.router.put('/users/:userId', authMiddleware, this.update.bind(this));
+    this.router.put('/users/:userId', this.update.bind(this));
   }
 
   async update(req: Request, res: Response) {

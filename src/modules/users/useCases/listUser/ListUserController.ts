@@ -13,7 +13,7 @@ export default class ListUserController extends Controller {
   }
 
   registerRoutes(): void {
-    this.router.get('/users', authMiddleware, this.list.bind(this));
+    this.router.get('/users', this.list.bind(this));
   }
 
   async list(req: Request, res: Response) {

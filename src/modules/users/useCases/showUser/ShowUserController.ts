@@ -12,7 +12,7 @@ export default class ShowUserController extends Controller {
   }
 
   registerRoutes(): void {
-    this.router.get('/users/:userId', authMiddleware, this.show.bind(this));
+    this.router.get('/users/:userId', this.show.bind(this));
   }
 
   async show(req: Request, res: Response) {
