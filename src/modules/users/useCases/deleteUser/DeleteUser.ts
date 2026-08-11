@@ -12,7 +12,6 @@ export default class DeleteUser implements UseCase<string, Promise<boolean>> {
 
   async execute(id: string): Promise<boolean> {
     const user = await this.userRepo.destroy(id);
-    await dispatcher(new UserDeleted(user));
 
     return !!user;
   }

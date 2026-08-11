@@ -22,7 +22,6 @@ export default class UpdateUser implements UseCase<UpdateUserDTO, Promise<User>>
     }, new UniqueId(reqData.userId))
 
     const savedUser = await this.userRepo.update(user);
-    await dispatcher(new UserUpdated(savedUser));
 
     return savedUser;
   }
