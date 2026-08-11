@@ -13,7 +13,7 @@ export default class UpdateTask implements UseCase<UpdateTaskDTO, Promise<Task>>
   }
 
   async execute(req: UpdateTaskDTO): Promise<Task> {
-    const reqData = transformAndValidate(UpdateTaskDTO, req, { skipMissingProperties: true });
+    const reqData = transformAndValidate(UpdateTaskDTO, req);
 
     const existingTask = await this.taskRepo.show(reqData.taskId);
     const task = Task.create({
