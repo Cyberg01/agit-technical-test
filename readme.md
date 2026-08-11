@@ -1,8 +1,6 @@
 # Task Manager API
 
-REST API sederhana untuk manajemen user pada aplikasi task manager. API memakai JWT untuk autentikasi, MySQL untuk penyimpanan data, Sequelize sebagai ORM, dan Docker Compose untuk menjalankan service lokal.
-
-> Catatan: tabel `task` sudah tersedia di database, tetapi endpoint task belum tersedia di kode saat ini.
+REST API sederhana untuk manajemen user dan task pada aplikasi task manager. API memakai JWT untuk autentikasi user, MySQL untuk penyimpanan data, Sequelize sebagai ORM, dan Docker Compose untuk menjalankan service lokal.
 
 ## Tech Stack
 - Node.js 18
@@ -11,6 +9,7 @@ REST API sederhana untuk manajemen user pada aplikasi task manager. API memakai 
 - Sequelize
 - MySQL 8
 - JWT (`jsonwebtoken`)
+- HTTP client dengan `axios`
 - Password hashing dengan `bcryptjs`
 - Validasi request dengan `class-validator`
 - Docker Compose
@@ -20,6 +19,8 @@ REST API sederhana untuk manajemen user pada aplikasi task manager. API memakai 
 - Register user tanpa autentikasi
 - Login user dan generate JWT
 - CRUD user dengan autentikasi Bearer token
+- CRUD task tanpa autentikasi
+- Fetch weather info task dari `wttr.in` saat `city` dikirim
 - Pagination, filter, search, dan sort untuk list user
 - Cache file untuk show user
 - Event worker untuk event user created, updated, deleted
@@ -249,6 +250,95 @@ Auth: wajib Bearer token.
 
 Response berupa boolean.
 
+### Create Task
+
+```http
+POST /tasks
+```
+
+Auth: tidak perlu.
+
+Request body:
+
+```json
+{
+	"userID": "00000000-0000-4000-8000-000000000001",
+	"title": "Buy milk",
+	"city": "Jakarta"
+}
+```
+
+Validasi:
+
+- `userID`: UUID user valid
+- `title`: string
+- `city`: optional string, dipakai untuk fetch weather info dari `wttr.in`
+
+### List Task
+
+```http
+GET /tasks
+```
+
+Auth: tidak perlu.
+
+Query optional:
+
+| Query | Contoh | Keterangan |
+| --- | --- | --- |
+| `page[limit]` | `10` | Jumlah data |
+| `page[offset]` | `0` | Offset data |
+| `filter[id]` | UUID task | Filter by id |
+| `filter[userID]` | UUID user | Filter by user |
+| `filter[title]` | `Buy milk` | Filter by title |
+| `filter[city]` | `Jakarta` | Filter by city |
+| `filter[isDone]` | `true` | Filter by status |
+| `search[value]` | `milk` | Keyword search |
+| `search[fields][]` | `title` | Field untuk search |
+| `sort` | `createdAt:DESC` | Format `field:ASC` atau `field:DESC` |
+
+Contoh:
+
+```text
+GET /tasks?page[limit]=10&page[offset]=0&search[value]=milk&search[fields][]=title&sort=createdAt:DESC
+```
+
+### Show Task
+
+```http
+GET /tasks/:taskId
+```
+
+Auth: tidak perlu.
+
+### Update Task
+
+```http
+PUT /tasks/:taskId
+```
+
+Auth: tidak perlu.
+
+Request body dapat dikirim partial:
+
+```json
+{
+	"title": "Buy eggs",
+	"city": "Bandung",
+	"isDone": true
+}
+```
+
+### Delete Task
+
+```http
+DELETE /tasks/:taskId
+```
+
+Auth: tidak perlu.
+
+Response berupa boolean.
+
 ## Contoh Curl
 
 Register:
@@ -297,6 +387,40 @@ curl -X DELETE http://localhost:3001/users/<userId> \
 	-H "Authorization: Bearer <token>"
 ```
 
+Create task:
+
+```bash
+curl -X POST http://localhost:3001/tasks \
+	-H "Content-Type: application/json" \
+	-d '{"userID":"00000000-0000-4000-8000-000000000001","title":"Buy milk","city":"Jakarta"}'
+```
+
+List task:
+
+```bash
+curl "http://localhost:3001/tasks?page[limit]=10&page[offset]=0&search[value]=milk&search[fields][]=title&sort=createdAt:DESC"
+```
+
+Show task:
+
+```bash
+curl http://localhost:3001/tasks/<taskId>
+```
+
+Update task:
+
+```bash
+curl -X PUT http://localhost:3001/tasks/<taskId> \
+	-H "Content-Type: application/json" \
+	-d '{"isDone":true}'
+```
+
+Delete task:
+
+```bash
+curl -X DELETE http://localhost:3001/tasks/<taskId>
+```
+
 ## Error Umum
 
 | Status / Message | Penyebab |
@@ -317,6 +441,7 @@ src/
 		http/                          # App HTTP dan middleware
 		loaders/                       # Loader cache
 	modules/
+		tasks/                         # Domain, repo, mapper, utility weather, dan use case task
 		users/                         # Domain, repo, mapper, event, dan use case user
 	types/                           # Type augmentation Express
 storage/
@@ -326,10 +451,10 @@ storage/
 
 ## Catatan Implementasi
 
-- Endpoint user terdaftar di `src/infrastructure/http/app.ts`.
+- Endpoint user dan task terdaftar di `src/infrastructure/http/app.ts`.
 - Middleware auth ada di `src/infrastructure/http/middlewares/auth.ts`.
 - Token JWT berisi `userId` dan `email`.
 - Password saat register/create user di-hash dengan `bcryptjs`.
 - Password pada update user mengikuti implementasi saat ini di `UpdateUser.ts`.
-- Tabel `task` tersedia untuk relasi data, tetapi endpoint task belum ada.
+- Weather info task diambil dari `wttr.in`; jika API gagal, task tetap dibuat dengan `weatherInfo` null.
 
