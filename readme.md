@@ -1,6 +1,7 @@
 # Task Manager API
 
 REST API sederhana untuk manajemen user pada aplikasi task manager. API memakai JWT untuk autentikasi, MySQL untuk penyimpanan data, Sequelize sebagai ORM, dan Docker Compose untuk menjalankan service lokal.
+
 > Catatan: tabel `task` sudah tersedia di database, tetapi endpoint task belum tersedia di kode saat ini.
 
 ## Tech Stack
@@ -331,9 +332,4 @@ storage/
 - Password saat register/create user di-hash dengan `bcryptjs`.
 - Password pada update user mengikuti implementasi saat ini di `UpdateUser.ts`.
 - Tabel `task` tersedia untuk relasi data, tetapi endpoint task belum ada.
-# Tach Stack :
-Node JS
-Express
-Sequalize
-Mysql2
 
