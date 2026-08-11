@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { IsDateString, IsMongoId, IsOptional, IsString, ValidateNested } from 'class-validator';
+import { IsOptional, IsString, ValidateNested } from 'class-validator';
 
 class PageListUserDTO {
   @IsString()
@@ -10,7 +10,9 @@ class PageListUserDTO {
 }
 
 class FilterListUserDTO {
-  _id?: object;
+  id?: string;
+  name?: string;
+  email?: string;
 }
 
 class SearchListUserDTO {

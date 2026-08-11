@@ -13,6 +13,7 @@ export default class CreateUserController extends Controller {
 
   registerRoutes(): void {
     this.router.post('/users', this.store.bind(this));
+    this.router.post('/register', this.store.bind(this));
   }
 
   async store(req: Request, res: Response) {

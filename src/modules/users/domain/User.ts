@@ -1,8 +1,9 @@
-import mongoose from 'mongoose';
 import { Entity, UniqueId } from '@aptana/multichannel-common';
 
 export interface UserProps {
     name: string;
+    email: string;
+    password: string;
 }
 
 export class User extends Entity<UserProps> {
@@ -12,6 +13,14 @@ export class User extends Entity<UserProps> {
 
     get name(): string {
         return this.props.name;
+    }
+
+    get email(): string {
+        return this.props.email;
+    }
+
+    get password(): string {
+        return this.props.password;
     }
 
     private constructor(props: UserProps, id?: UniqueId) {
@@ -24,5 +33,3 @@ export class User extends Entity<UserProps> {
         return user;
     }
 }
-
-export type UserContract = User & mongoose.Document;

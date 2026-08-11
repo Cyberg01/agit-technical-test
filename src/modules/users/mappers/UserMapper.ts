@@ -4,16 +4,20 @@ import { User } from '../domain/User';
 export class UserMapper extends Mapper<User> {
   public static toDomain(raw: any): User {
     const user = User.create({
-      name: raw.name
-    }, new UniqueId(raw._id));
+      name: raw.name,
+      email: raw.email,
+      password: raw.password
+    }, new UniqueId(raw.id));
 
     return user;
   }
 
   public static toPersistence(user: User): any {
     return {
-      _id: user.id.toString(),
-      name: user.name
+      id: user.id.toString(),
+      name: user.name,
+      email: user.email,
+      password: user.password
     };
   }
 
@@ -21,6 +25,7 @@ export class UserMapper extends Mapper<User> {
     return {
       id: user.id,
       name: user.name,
+      email: user.email,
       createdAt: user.createdAt,
       updatedAt: user.updatedAt
     }

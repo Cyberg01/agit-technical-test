@@ -1,11 +1,6 @@
 import { IsEmail, IsString } from 'class-validator';
 
-class UpdateUserDTO {
-  userId: string;
-
-  @IsString()
-  name: string;
-
+class LoginUserDTO {
   @IsEmail()
   email: string;
 
@@ -13,4 +8,4 @@ class UpdateUserDTO {
   password: string;
 }
 
-export default UpdateUserDTO;
+export default LoginUserDTO;

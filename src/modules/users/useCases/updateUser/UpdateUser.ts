@@ -16,7 +16,9 @@ export default class UpdateUser implements UseCase<UpdateUserDTO, Promise<User>>
     const reqData = transformAndValidate(UpdateUserDTO, req, { skipMissingProperties: true });
 
     const user = User.create({
-      name: reqData.name
+      name: reqData.name,
+      email: reqData.email,
+      password: reqData.password
     }, new UniqueId(reqData.userId))
 
     const savedUser = await this.userRepo.update(user);
