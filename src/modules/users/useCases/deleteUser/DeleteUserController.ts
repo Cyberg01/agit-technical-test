@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Controller, Service } from '@aptana/multichannel-common';
+import authMiddleware from '@/infrastructure/http/middlewares/auth';
 import DeleteUser from './DeleteUser';
 
 @Service()
@@ -11,7 +12,7 @@ export default class DeleteUserController extends Controller {
   }
 
   registerRoutes(): void {
-    this.router.delete('/users/:userId', this.delete.bind(this));
+    this.router.delete('/users/:userId', authMiddleware, this.delete.bind(this));
   }
 
   async delete(req: Request, res: Response) {

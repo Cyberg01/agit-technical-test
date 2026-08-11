@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Controller, Service } from '@aptana/multichannel-common';
+import authMiddleware from '@/infrastructure/http/middlewares/auth';
 import ShowUser from './ShowUser';
 
 @Service()
@@ -11,7 +12,7 @@ export default class ShowUserController extends Controller {
   }
 
   registerRoutes(): void {
-    this.router.get('/users/:userId', this.show.bind(this));
+    this.router.get('/users/:userId', authMiddleware, this.show.bind(this));
   }
 
   async show(req: Request, res: Response) {

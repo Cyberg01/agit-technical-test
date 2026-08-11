@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { Controller, Service } from '@aptana/multichannel-common';
+import authMiddleware from '@/infrastructure/http/middlewares/auth';
 import CreateUser from './CreateUser';
 
 @Service()
@@ -12,7 +13,7 @@ export default class CreateUserController extends Controller {
   }
 
   registerRoutes(): void {
-    this.router.post('/users', this.store.bind(this));
+    this.router.post('/users', authMiddleware, this.store.bind(this));
     this.router.post('/register', this.store.bind(this));
   }
 
