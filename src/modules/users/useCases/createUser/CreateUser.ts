@@ -30,8 +30,6 @@ export default class CreateUser implements UseCase<CreateUserDTO, Promise<User>>
 
     const savedUser = await this.userRepo.save(user);
 
-    await dispatcher(new UserCreated(savedUser));
-
     return savedUser;
   }
 }
